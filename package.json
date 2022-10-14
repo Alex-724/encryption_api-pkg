@@ -1,20 +1,18 @@
 {
-  "name": "encrypt-api",
+  "name": "encryption_api-pkg",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "This package can Encrypt and Decrypt String text",
+  "main": "test.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alex-724/Encryption_api-pkg.git"
+  },
+  "author": "Alex",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.20.1",
-    "ejs": "^3.1.8",
-    "express": "^4.18.2",
-    "express-minify-html-terser": "^1.0.2",
-    "http": "^0.0.1-security",
-    "referrer-policy": "^1.2.0"
+    "axios": "^1.1.2"
   }
 }
