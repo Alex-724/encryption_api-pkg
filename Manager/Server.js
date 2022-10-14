@@ -41,7 +41,7 @@ module.exports = async (client) => {
 app.get('/', (req, res) => {
     return res.json({status: "online"});
 });
-app.get('/encrypt', (req, res) => {
+app.get('/encrypt', async (req, res) => {
     let text = req.query.text;
     let key = req.query.key;
     let level = req.query.level;
@@ -49,17 +49,17 @@ app.get('/encrypt', (req, res) => {
     if (!key) return res.json({error: "No key provided"});
     if (!level) level = "normal";
     if (level == "hard") {
-        let result = client.HardEncrypt(text, key);
+        let result = await client.HardEncrypt(text, key);
         return res.json({result: result});
     } else if (level == "normal") {
-        let result = client.Encrypt(text, key);
+        let result = await client.Encrypt(text, key);
         return res.json({result: result});
     } else {
         return res.json({error: "Invalid level provided"});
     }
 });
 
-app.get('/decrypt', (req, res) => {
+app.get('/decrypt', async (req, res) => {
     let text = req.query.text;
     let key = req.query.key;
     let level = req.query.level;
@@ -67,10 +67,10 @@ app.get('/decrypt', (req, res) => {
     if (!key) return res.json({error: "No key provided"});
     if (!level) level = "normal";
     if (level == "hard") {
-        let result = client.HardDecrypt(text, key);
+        let result = await client.HardDecrypt(text, key);
         return res.json({result: result});
     } else if (level == "normal") {
-        let result = client.Decrypt(text, key);
+        let result = await client.Decrypt(text, key);
         return res.json({result: result});
     } else {
         return res.json({error: "Invalid level provided"});
