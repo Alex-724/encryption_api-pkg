@@ -1,13 +1,14 @@
 const express = require('express');
 const app = express();
 const http = require("http").createServer(app);
+const ejs = require('ejs');
 const _port = process.env.PORT || 80;
+
+app.engine("NSFW-api", ejs.renderFile);
 http.listen(_port, () => {
   console.log(`Server started on port ${_port}`);
 });
-app.get('', (req, res) => {
-    return res.json({status: "online"});
-});
+
 app.get('/', (req, res) => {
     return res.json({status: "online"});
 });
