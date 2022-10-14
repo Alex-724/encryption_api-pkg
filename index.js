@@ -12,6 +12,7 @@ class Encryption_Api {
     );
     return data.result;
   }
+
   async decrypt(text, key, level) {
     if (!text) throw new Error("Please provide a text to decrypt");
     if (!key) throw new Error("Please provide a key to decrypt");
