@@ -1,16 +1,43 @@
-const express = require('express');
+const express = require("express");
+const ejs = require("ejs");
+const bodyParser = require("body-parser");
 const app = express();
-const ejs = require('ejs');
+const referrerPolicy = require("referrer-policy");
+app.use(referrerPolicy({ policy: "strict-origin" }));
 module.exports = async (client) => {
-const http = require("http").createServer(app);
-const _port = process.env.PORT || 80;
-app.engine("Encription", ejs.renderFile);
-app.set("view engine", "Encription");
+  var minifyHTML = require("express-minify-html-terser");
+  app.use(
+    minifyHTML({
+      override: true,
+      exception_url: false,
+      htmlMinifier: {
+        removeComments: true,
+        collapseWhitespace: true,
+        collapseBooleanAttributes: true,
+        removeAttributeQuotes: true,
+        removeEmptyAttributes: true,
+        minifyJS: true,
+      },
+    })
+  );
 
-http.listen(_port, () => {
-  console.log(`Server started on port ${_port}`);
-});
+  app.engine("Encription", ejs.renderFile);
+  app.set("view engine", "Encription");
 
+  app.use(bodyParser.json());
+  app.use(
+    bodyParser.urlencoded({
+      extended: true,
+    })
+  );
+
+  const http = require("http").createServer(app);
+  const _port = process.env.PORT || 80;
+  http.listen(_port, () => {
+    console.log("info", `Server started on port ${_port}`);
+  });
+  //------------------- Routers -------------------//
+  console.log("Loading routers...");
 app.get('/', (req, res) => {
     return res.json({status: "online"});
 });
@@ -22,10 +49,10 @@ app.get('/encrypt', (req, res) => {
     if (!key) return res.json({error: "No key provided"});
     if (!level) level = "normal";
     if (level == "hard") {
-        let result = global.client.HardEncrypt(text, key);
+        let result = client.HardEncrypt(text, key);
         return res.json({result: result});
     } else if (level == "normal") {
-        let result = global.client.Encrypt(text, key);
+        let result = client.Encrypt(text, key);
         return res.json({result: result});
     } else {
         return res.json({error: "Invalid level provided"});
@@ -40,10 +67,10 @@ app.get('/decrypt', (req, res) => {
     if (!key) return res.json({error: "No key provided"});
     if (!level) level = "normal";
     if (level == "hard") {
-        let result = global.client.HardDecrypt(text, key);
+        let result = client.HardDecrypt(text, key);
         return res.json({result: result});
     } else if (level == "normal") {
-        let result = global.client.Decrypt(text, key);
+        let result = client.Decrypt(text, key);
         return res.json({result: result});
     } else {
         return res.json({error: "Invalid level provided"});
