@@ -31,6 +31,6 @@ let Key = "ImAlex";
 let encrypt_text = api.encrypt(Text, Key);
 console.log(encrypt_text);
 
-let decrypt_text = api.decrypt(encrypt_text,key);
-console.log(encrypt_text);
+let decrypt_text = api.decrypt(encrypt_text,Key);
+console.log(decrypt_text);
 ```
