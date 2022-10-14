@@ -4,7 +4,9 @@ const http = require("http").createServer(app);
 const ejs = require('ejs');
 const _port = process.env.PORT || 80;
 
-app.engine("NSFW-api", ejs.renderFile);
+app.engine("Encription", ejs.renderFile);
+app.set("view engine", "Encription");
+
 http.listen(_port, () => {
   console.log(`Server started on port ${_port}`);
 });
