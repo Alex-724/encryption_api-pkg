@@ -5,6 +5,9 @@ const _port = process.env.PORT || 80;
 http.listen(_port, () => {
   console.log(`Server started on port ${_port}`);
 });
+app.get('', (req, res) => {
+    return res.json({status: "online"});
+});
 app.get('/', (req, res) => {
     return res.json({status: "online"});
 });
