@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
-const http = require("http").createServer(app);
 const ejs = require('ejs');
+module.exports = async (client) => {
+const http = require("http").createServer(app);
 const _port = process.env.PORT || 80;
-
 app.engine("Encription", ejs.renderFile);
 app.set("view engine", "Encription");
 
@@ -49,3 +49,4 @@ app.get('/decrypt', (req, res) => {
         return res.json({error: "Invalid level provided"});
     }
 });
+}
